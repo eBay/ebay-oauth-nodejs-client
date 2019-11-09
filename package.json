@@ -1,0 +1,30 @@
+{
+  "name": "ebay-oauth-nodejs-client",
+  "version": "1.0.0",
+  "description": "Get oauth2 token for ebay developer application",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha"
+  },
+  "author": "Ajaykumar Prathap",
+  "license": "ISC",
+  "keywords": [
+    "eBay",
+    "Oauth2",
+    "Oauth-ebay",
+    "Oauth-token",
+    "Authentication",
+    "access token",
+    "refresh token"
+  ],
+  "dependencies": {
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint-config-ebay": "^1.1.1",
+    "mocha": "^6.1.4",
+    "nock": "^10.0.6"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "PRODUCTION": {
+        "clientId": "PROD1234ABCD",
+        "clientSecret": "PRODSSSXXXZZZZ",
+        "devid": "SANDBOXDEVID",
+        "redirectUri": "PRODREDIRECT",
+        "baseUrl": "api.ebay.com"
+    },
+    "SANDBOX": {
+        "clientId": "SAND1234ABCD",
+        "clientSecret": "SANDBOXSSSXXXZZZZ",
+        "devid": "SANDBOXDEVID",
+        "redirectUri": "SANDBOXREDIRECT",
+        "baseUrl": "api.sandbox.ebay.com"
+    }
+}
