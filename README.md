@@ -1,8 +1,8 @@
-# Ebay Oauth API
+# Ebay Oauth Client
 
 This code allows developers to fetch an OAuth token that can be used to call the eBay Developer REST APIs.  The code is intended for use with Node.js.
 
-[![npm version](https://badge.fury.io/js/oauth-ebay.svg)](https://badge.fury.io/js/oauth-ebay)
+[![npm version](https://badge.fury.io/js/ebay-oauth-nodejs-client.svg)](https://badge.fury.io/js/ebay-oauth-nodejs-client)
 
 ## Table of Contents
 
@@ -28,17 +28,18 @@ See e.g.,https://developer.ebay.com/api-docs/static/oauth-tokens.html
 ## Installation
 
 ```shell
-npm install oauth-ebay
+npm install ebay-oauth-nodejs-client
 ```
 or 
 
 ```shell
-yarn add oauth-ebay
+yarn add ebay-oauth-nodejs-client
 ```
 ## Library Setup and getting started
 
 1. Invoke the outh ebay library as given below
 ```javascript
+const EbayAuthToken = require('ebay-oauth-nodejs-client');
 const ebayAuthToken = new EbayAuthToken({
     filePath: 'demo/eBayJson.json' // input file path.
 })

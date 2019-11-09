@@ -9,6 +9,7 @@
   },
   "author": "Ajaykumar Prathap",
   "license": "ISC",
+  "contributors": [],
   "keywords": [
     "eBay",
     "Oauth2",
@@ -16,7 +17,9 @@
     "Oauth-token",
     "Authentication",
     "access token",
-    "refresh token"
+    "refresh token",
+    "oauth-ebay",
+    "oauthebaynode"
   ],
   "dependencies": {
     "querystring": "^0.2.0"
@@ -26,5 +29,12 @@
     "eslint-config-ebay": "^1.1.1",
     "mocha": "^6.1.4",
     "nock": "^10.0.6"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eBay/ebay-oauth-nodejs-client"
   }
 }
