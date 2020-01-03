@@ -21,7 +21,7 @@
 const queryString = require('querystring');
 const consts = require('./constants');
 const postRequest = require('./request');
-const { readJSONFile, validateParams } = require('./utils');
+const { readJSONFile, validateParams, readOptions } = require('./utils');
 
 /**
  * Creates a Ebay Oauth instance.
@@ -38,10 +38,10 @@ const { readJSONFile, validateParams } = require('./utils');
 
 class EbayOauthToken {
     constructor(options) {
-        if (!options || !options.filePath) {
-            throw new Error('input filePath is required');
+        if (!options) {
+            throw new Error('This method accepts an object with filepath or with client id and client secret');
         }
-        this.credentials = readJSONFile(options.filePath);
+        this.credentials = options.filePath ? readJSONFile(options.filePath) : readOptions(options);
         this.grantType = '';
         return this;
     }

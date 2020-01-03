@@ -44,6 +44,13 @@ const ebayAuthToken = new EbayAuthToken({
     filePath: 'demo/eBayJson.json' // input file path.
 })
 ```
+OR
+```javascript
+const ebayAuthToken = new EbayAuthToken({
+    clientId: '---Client id ----',
+    clientSecret: '-- client secret---'
+});
+```
 2. If you want to get your application credentials such as AppId, DevId, and CertId. Refer to [Creating eBay Developer Account](https://developer.ebay.com/api-docs/static/creating-edp-account.html) for details on how to get these credentials.
 3. You can refer to example.js for an example of how to use credentials.
 4. For Authorization code grant

@@ -1,3 +1,6 @@
 {
-    "extends": "ebay"
+    "extends": "ebay",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    }
 }
