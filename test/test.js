@@ -12,10 +12,27 @@ describe('test EbayAuthToken', () => {
     it('test without options', () => {
         expect(() => {
             new EbayAuthToken(); // eslint-disable-line no-new
-        }).to.throw(Error, 'input filePath is required');
+        }).to.throw(Error, 'This method accepts an object with filepath or with client id and client secret');
     });
 
-    it('test getApplicationToken method', () => {
+    it('test input params without filePath', () => {
+        const ebayAuthToken = new EbayAuthToken({
+            clientId: 'PROD1234ABCD',
+            clientSecret: 'PRODSSSXXXZZZZ',
+            devid: 'SANDBOXDEVID'
+        });
+        expect(ebayAuthToken.credentials).deep.equals({
+            'PRODUCTION': {
+                'clientId': 'PROD1234ABCD',
+                'clientSecret': 'PRODSSSXXXZZZZ',
+                'devid': 'SANDBOXDEVID',
+                'env': 'PRODUCTION',
+                'baseUrl': 'api.ebay.com'
+            }
+        });
+    });
+
+    it('test getApplicationToken method using filePath', () => {
         const ebayAuthToken = new EbayAuthToken({
             filePath: 'test/test.json'
         });

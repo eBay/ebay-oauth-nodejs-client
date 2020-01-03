@@ -17,6 +17,7 @@
  */
 
 /* eslint no-console: "off" */
+/* eslint no-redeclare: "off" */
 'use strict';
 const EbayAuthToken = require('../src/index');
 
@@ -31,8 +32,15 @@ const scopes = ['https://api.ebay.com/oauth/api_scope',
     'https://api.ebay.com/oauth/api_scope/sell.fulfillment'
 ];
 
-const ebayAuthToken = new EbayAuthToken({
+// pass the credentials through the ext file.
+let ebayAuthToken = new EbayAuthToken({
     filePath: 'demo/ebay-config-sample.json'
+});
+
+// pass the credentials through constructor
+ebayAuthToken = new EbayAuthToken({
+    clientId: '---Client id ----',
+    clientSecret: '-- client secret---'
 });
 
 const clientScope = 'https://api.ebay.com/oauth/api_scope';

@@ -17,7 +17,6 @@ This code allows developers to fetch an OAuth token that can be used to call the
     * [Grant Type: Client Credentials](#client-credentials)
     * [Grant Type: Authorization Code](#authorization-code)
     * [Grant Type: Refresh Token](#refresh-token)
-* [Developers and Contributors](#developers-and-contributors)
 * [References](#references)
 * [License](#license)
 
@@ -43,6 +42,13 @@ const EbayAuthToken = require('ebay-oauth-nodejs-client');
 const ebayAuthToken = new EbayAuthToken({
     filePath: 'demo/eBayJson.json' // input file path.
 })
+```
+OR
+```javascript
+const ebayAuthToken = new EbayAuthToken({
+    clientId: '<your_client_id>',
+    clientSecret: '<your_client_secret>'
+});
 ```
 2. If you want to get your application credentials such as AppId, DevId, and CertId. Refer to [Creating eBay Developer Account](https://developer.ebay.com/api-docs/static/creating-edp-account.html) for details on how to get these credentials.
 3. You can refer to example.js for an example of how to use credentials.
@@ -97,11 +103,8 @@ Read more about this grant type at [oauth-authorization-code-grant](https://deve
 
 This grant type can be performed by simply using ```ebayAuthToken.getAccessToken(environment, refreshToken, scopes)```. Usually access tokens are short lived and if the access token is expired, the caller can use the refresh token to generate a new access token. Read more about it at [Using a refresh token to update a user access token](https://developer.ebay.com/api-docs/static/oauth-auth-code-grant-request.html)
 
-
-## Developers and Contributors
-Ajaykumar Prathap
-Sandeep Dhiman
-Sree Kalahasthi
+## Questions/problems?
+you've found an bug/issue, please file it on [GitHub](https://github.com/eBay/ebay-oauth-nodejs-client/issues).
 
 ## References
 

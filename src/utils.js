@@ -18,6 +18,8 @@
  */
 const fs = require('fs');
 const path = require('path');
+const sandboxBaseUrl = 'api.sandbox.ebay.com';
+const prodBaseUrl = 'api.ebay.com';
 
 const readJSONFile = (fileName) => {
     try {
@@ -35,4 +37,12 @@ const validateParams = (environment, scopes, credentials) => {
     if (!credentials) throw new Error('credentials configured incorrectly');
 };
 
-module.exports = { readJSONFile, validateParams };
+const readOptions = (options) => {
+    const credentials = {};
+    if (!options.env) options.env = 'PRODUCTION';
+    options.baseUrl = options.env === 'PRODUCTION' ? prodBaseUrl : sandboxBaseUrl;
+    credentials[options.env] = { ...options };
+    return credentials;
+};
+
+module.exports = { readJSONFile, validateParams, readOptions };
