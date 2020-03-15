@@ -34,6 +34,42 @@ or
 ```shell
 yarn add ebay-oauth-nodejs-client
 ```
+
+## Usage
+
+```js
+const EbayAuthToken = require('ebay-oauth-nodejs-client');
+const ebayAuthToken = new EbayAuthToken({
+    clientId: '<your_client_id>',
+    clientSecret: '<your_client_secret>'.
+    redirectUri: '<redirect uri>'
+});
+// generate client credential token
+(async () => {
+    const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
+    console.log(token);
+})();
+
+// generate user consent authorization url.
+(async () => {
+    const authUrl = await ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes);
+    console.log(authUrl);
+})();
+
+// Getting a User access token.
+
+(async () => {
+    const accessToken = await ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code);
+    console.log(accessToken);
+})();
+
+// Using a refresh token to update a User access token (Updating the expired access token).
+(async () => {
+    const accessToken = await ebayAuthToken.getAccessToken('PRODUCTION', refreshToken, scopes);
+    console.log(accessToken);
+})();
+
+```
 ## Library Setup and getting started
 
 1. Invoke the outh ebay library as given below
@@ -50,6 +86,7 @@ const ebayAuthToken = new EbayAuthToken({
     clientSecret: '<your_client_secret>'
 });
 ```
+
 2. If you want to get your application credentials such as AppId, DevId, and CertId. Refer to [Creating eBay Developer Account](https://developer.ebay.com/api-docs/static/creating-edp-account.html) for details on how to get these credentials.
 3. You can refer to example.js for an example of how to use credentials.
 4. For Authorization code grant

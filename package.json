@@ -1,6 +1,6 @@
 {
   "name": "ebay-oauth-nodejs-client",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Get oauth2 token for ebay developer application",
   "main": "src/index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "oauthebaynode"
   ],
   "dependencies": {
+    "opener": "^1.5.1",
     "querystring": "^0.2.0"
   },
   "devDependencies": {
