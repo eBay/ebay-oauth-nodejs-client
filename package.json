@@ -4,6 +4,7 @@
   "description": "Get oauth2 token for ebay developer application",
   "main": "src/index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "eslint . && mocha"
   },
   "author": "Ajaykumar Prathap",
@@ -21,7 +22,6 @@
     "oauthebaynode"
   ],
   "dependencies": {
-    "opener": "^1.5.1",
     "querystring": "^0.2.0"
   },
   "devDependencies": {
