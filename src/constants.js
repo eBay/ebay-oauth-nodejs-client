@@ -22,7 +22,7 @@ module.exports.OAUTHENVIRONMENT_APIENDPOINT_SANDBOX = 'https://api.sandbox.ebay.
 module.exports.OAUTHENVIRONMENT_APIENDPOINT_PRODUCTION = 'https://api.ebay.com/identity/v1/oauth2/token';
 
 // Scopes
-module.exports.API_SCOPE_SANDBOX = 'https://api.ebay.com/oauth/api_scope';
+module.exports.CLIENT_CRED_SCOPE = 'https://api.ebay.com/oauth/api_scope';
 
 // Environments
 module.exports.PROD_ENV = 'PRODUCTION';

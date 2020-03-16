@@ -3,6 +3,8 @@
 This code allows developers to fetch an OAuth token that can be used to call the eBay Developer REST APIs.  The code is intended for use with Node.js.
 
 [![npm version](https://badge.fury.io/js/ebay-oauth-nodejs-client.svg)](https://badge.fury.io/js/ebay-oauth-nodejs-client)
+[![Build Status](https://travis-ci.com/eBay/ebay-oauth-nodejs-client.svg?branch=master)](https://travis-ci.com/github/eBay/ebay-oauth-nodejs-client)
+
 
 ## Table of Contents
 
@@ -33,6 +35,42 @@ or
 
 ```shell
 yarn add ebay-oauth-nodejs-client
+```
+
+## Usage
+
+```js
+const EbayAuthToken = require('ebay-oauth-nodejs-client');
+const ebayAuthToken = new EbayAuthToken({
+    clientId: '<your_client_id>',
+    clientSecret: '<your_client_secret>'.
+    redirectUri: '<redirect uri>'
+});
+// generate client credential token
+(async () => {
+    const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
+    console.log(token);
+})();
+
+// generate user consent authorization url.
+(async () => {
+    const authUrl = await ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes);
+    console.log(authUrl);
+})();
+
+// Getting a User access token.
+
+(async () => {
+    const accessToken = await ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code);
+    console.log(accessToken);
+})();
+
+// Using a refresh token to update a User access token (Updating the expired access token).
+(async () => {
+    const accessToken = await ebayAuthToken.getAccessToken('PRODUCTION', refreshToken, scopes);
+    console.log(accessToken);
+})();
+
 ```
 ## Library Setup and getting started
 

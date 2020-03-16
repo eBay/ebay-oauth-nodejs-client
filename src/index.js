@@ -41,12 +41,19 @@ class EbayOauthToken {
         if (!options) {
             throw new Error('This method accepts an object with filepath or with client id and client secret');
         }
+        // get user credentials.
         this.credentials = options.filePath ? readJSONFile(options.filePath) : readOptions(options);
         this.grantType = '';
         return this;
     }
 
-    getApplicationToken(environment, scopes) {
+    /**
+    * generate application access toke for client credentials grant flow.
+    * @param environment Environment (production/sandbox).
+    * @param scopes array list of scopes for which you need to generate the access token.
+    * @return accessToken object.
+   */
+    getApplicationToken(environment, scopes = consts.CLIENT_CRED_SCOPE) {
         validateParams(environment, scopes, this.credentials);
         this.grantType = consts.PAYLOAD_VALUE_CLIENT_CREDENTIALS;
         this.scope = Array.isArray(scopes) ? scopes.join('%20') : scopes;
@@ -57,6 +64,13 @@ class EbayOauthToken {
         return postRequest(data, this.credentials[environment]);
     }
 
+    /**
+     * generate user consent authorization url.
+     * @param environment Environment (production/sandbox).
+     * @param scopes array list of scopes for which you need to generate the access token.
+     * @param state custom state value.
+     * @return userConsentUrl
+    */
     generateUserAuthorizationUrl(environment, scopes, state) {
         validateParams(environment, scopes, this.credentials);
         const credentials = this.credentials[environment];
@@ -74,6 +88,12 @@ class EbayOauthToken {
         return `${baseUrl}?${queryParam}`;
     }
 
+    /**
+     * Getting a User access token.
+     * @param environment Environment (production/sandbox).
+     * @param code code generated from browser using the method generateUserAuthorizationUrl.
+     * @return accessToken object.
+    */
     exchangeCodeForAccessToken(environment, code) {
         if (!code) {
             throw new Error('Authorization code is required');
@@ -84,6 +104,13 @@ class EbayOauthToken {
         return postRequest(data, credentials);
     }
 
+    /**
+     * Using a refresh token to update a User access token (Updating the expired access token).
+     * @param environment Environment (production/sandbox).
+     * @param refreshToken refresh token.
+     * @param scopes array list of scopes for which you need to generate the access token.
+     * @return accessToken object.
+    */
     getAccessToken(environment, refreshToken, scopes) {
         const token = refreshToken || this.getRefreshToken();
         validateParams(environment, scopes, this.credentials);
