@@ -3,6 +3,8 @@
 This code allows developers to fetch an OAuth token that can be used to call the eBay Developer REST APIs.  The code is intended for use with Node.js.
 
 [![npm version](https://badge.fury.io/js/ebay-oauth-nodejs-client.svg)](https://badge.fury.io/js/ebay-oauth-nodejs-client)
+[![Build Status](https://travis-ci.org/pajaydev/ebay-oauth-nodejs-client.svg?branch=master)](https://travis-ci.org/github/pajaydev/ebay-oauth-nodejs-client)
+
 
 ## Table of Contents
 
