@@ -24,7 +24,7 @@ This code allows developers to fetch an OAuth token that can be used to call the
 
 ## What is OAuth
 OAuth 2.0 is the most widely used standard for authentication and authorization for API based access. The complete end to end documentation on how eBay OAuth functions may be used is available at developer.ebay.com. 
-See e.g.,https://developer.ebay.com/api-docs/static/oauth-tokens.html
+See: https://developer.ebay.com/api-docs/static/oauth-tokens.html
 
 ## Installation
 
@@ -43,7 +43,7 @@ yarn add ebay-oauth-nodejs-client
 const EbayAuthToken = require('ebay-oauth-nodejs-client');
 const ebayAuthToken = new EbayAuthToken({
     clientId: '<your_client_id>',
-    clientSecret: '<your_client_secret>'.
+    clientSecret: '<your_client_secret>',
     redirectUri: '<redirect uri>'
 });
 // generate client credential token
@@ -74,7 +74,7 @@ const ebayAuthToken = new EbayAuthToken({
 ```
 ## Library Setup and getting started
 
-1. Invoke the outh ebay library as given below
+1. Invoke the oauth ebay library as given below
 ```javascript
 const EbayAuthToken = require('ebay-oauth-nodejs-client');
 const ebayAuthToken = new EbayAuthToken({
@@ -161,15 +161,6 @@ Use of this source code is governed by a Apache-2.0 license that can be found in
 
 ## Useful links
 
-Getting Client Id and Client Secret
-```shell
-https://developer.ebay.com/api-docs/static/oauth-credentials.html
-```
-Getting your redirect_uri value
-```shell
-https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html
-```
-Specifying right scopes
-```shell
-https://developer.ebay.com/api-docs/static/oauth-scopes.html
-```
+* Getting Client Id and Client Secret: https://developer.ebay.com/api-docs/static/oauth-credentials.html
+* Getting your redirect_uri value: https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html
+* Specifying right scopes: https://developer.ebay.com/api-docs/static/oauth-scopes.html
