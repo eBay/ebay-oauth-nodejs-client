@@ -63,20 +63,31 @@ describe('test EbayAuthToken', () => {
         }).to.throw(Error, 'Error while reading the credentials, Kindly check here to configure');
     });
 
-    it('test generateUserAuthorizationUrl without prompt', () => {
+    it('test generateUserAuthorizationUrl without options', () => {
         const ebayAuthToken = new EbayAuthToken({
             filePath: 'test/test.json'
         });
         const scope = 'https://api.ebay.com/oauth/api_scope';
-        expect(ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scope)).to.equal('https://auth.ebay.com/oauth2/authorize?client_id=PROD1234ABCD&redirect_uri=PRODREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope&prompt=undefined');
+        expect(ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scope)).to.equal('https://auth.ebay.com/oauth2/authorize?client_id=PROD1234ABCD&redirect_uri=PRODREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope');
     });
 
-    it('test generateUserAuthorizationUrl with state', () => {
+    it('test generateUserAuthorizationUrl with incorrect options', () => {
         const ebayAuthToken = new EbayAuthToken({
             filePath: 'test/test.json'
         });
         const scope = 'https://api.ebay.com/oauth/api_scope';
-        expect(ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scope, 'state')).to.equal('https://auth.ebay.com/oauth2/authorize?client_id=PROD1234ABCD&redirect_uri=PRODREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope&prompt=undefined&state=state');
+        expect(() => {
+            ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scope, 'options');
+        }).to.throw(Error, 'Improper way to provide optional values');
+    });
+
+    it('test generateUserAuthorizationUrl with options', () => {
+        const ebayAuthToken = new EbayAuthToken({
+            filePath: 'test/test.json'
+        });
+        const scope = 'https://api.ebay.com/oauth/api_scope';
+        const options = { prompt: 'login', state: 'state' };
+        expect(ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scope, options)).to.equal('https://auth.ebay.com/oauth2/authorize?client_id=PROD1234ABCD&redirect_uri=PRODREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope&prompt=login&state=state');
     });
 
     it('test generateUserAuthorizationUrl with sandbox env', () => {
@@ -84,7 +95,7 @@ describe('test EbayAuthToken', () => {
             filePath: 'test/test.json'
         });
         const scope = 'https://api.ebay.com/oauth/api_scope';
-        expect(ebayAuthToken.generateUserAuthorizationUrl('SANDBOX', scope)).to.equal('https://auth.sandbox.ebay.com/oauth2/authorize?client_id=SAND1234ABCD&redirect_uri=SANDBOXREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope&prompt=undefined');
+        expect(ebayAuthToken.generateUserAuthorizationUrl('SANDBOX', scope)).to.equal('https://auth.sandbox.ebay.com/oauth2/authorize?client_id=SAND1234ABCD&redirect_uri=SANDBOXREDIRECT&response_type=code&scope=https://api.ebay.com/oauth/api_scope');
     });
 
     it('test exchangeCodeForAccessToken without code', () => {

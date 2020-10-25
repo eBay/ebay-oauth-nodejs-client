@@ -66,22 +66,26 @@ class EbayOauthToken {
 
     /**
      * generate user consent authorization url.
-     * @param environment Environment (production/sandbox).
-     * @param scopes array list of scopes for which you need to generate the access token.
-     * @param state custom state value.
+     * @param {string} environment Environment (production/sandbox).
+     * @param {string[]} scopes array list of scopes for which you need to generate the access token.
+     * @param {Object} options optional values
+     * @param {string} options.state custom state value
+     * @param {string} options.prompt enforce to log in
      * @return userConsentUrl
     */
-    generateUserAuthorizationUrl(environment, scopes, state) {
+    generateUserAuthorizationUrl(environment, scopes, options) {
         validateParams(environment, scopes, this.credentials);
         const credentials = this.credentials[environment];
         if (!credentials) throw new Error('Error while reading the credentials, Kindly check here to configure');
         if (!credentials.redirectUri) throw new Error('redirect_uri is required for redirection after sign in \n kindly check here https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html');
+        if (options && typeof(options) !== 'object') throw new Error('Improper way to provide optional values');
         this.scope = Array.isArray(scopes) ? scopes.join('%20') : scopes;
+        const { prompt, state } = options || {};
         let queryParam = `client_id=${credentials.clientId}`;
         queryParam = `${queryParam}&redirect_uri=${credentials.redirectUri}`;
         queryParam = `${queryParam}&response_type=code`;
         queryParam = `${queryParam}&scope=${this.scope}`;
-        queryParam = `${queryParam}&prompt=${this.prompt}`;
+        queryParam = prompt ? `${queryParam}&prompt=${prompt}` : queryParam;
         queryParam = state ? `${queryParam}&state=${state}` : queryParam;
         const baseUrl = environment === 'PRODUCTION' ? consts.OAUTHENVIRONMENT_WEBENDPOINT_PRODUCTION
             : consts.OAUTHENVIRONMENT_WEBENDPOINT_SANDBOX; // eslint-disable-line 
