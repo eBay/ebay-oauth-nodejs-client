@@ -40,7 +40,8 @@ let ebayAuthToken = new EbayAuthToken({
 // pass the credentials through constructor
 ebayAuthToken = new EbayAuthToken({
     clientId: '---Client id ----',
-    clientSecret: '-- client secret---'
+    clientSecret: '-- client secret---',
+    redirectUri: '-- redirect uri name --'
 });
 
 const clientScope = 'https://api.ebay.com/oauth/api_scope';
@@ -54,6 +55,9 @@ ebayAuthToken.getApplicationToken('PRODUCTION', clientScope).then((data) => {
 // // Authorization Code Auth Flow
 ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes); // get user consent url.
 // Using user consent url, you will be able to generate the code which you can use it for exchangeCodeForAccessToken.
+// Also accepts optional values: prompt, state
+ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes, { prompt: 'login', state: 'custom-state-value' });
+
 // // Exchange Code for Authorization token
 ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code).then((data) => { // eslint-disable-line no-undef
     console.log(data);
