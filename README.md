@@ -28,50 +28,79 @@ See: https://developer.ebay.com/api-docs/static/oauth-tokens.html
 
 ## Installation
 
+Using npm:
 ```shell
 npm install ebay-oauth-nodejs-client
 ```
-or 
 
+Using yarn:
 ```shell
 yarn add ebay-oauth-nodejs-client
 ```
 
 ## Usage
 
+##### EbayAuthToken(config)
+Create a new instance of `EbayAuthToken` with a relevant config.
 ```js
 const EbayAuthToken = require('ebay-oauth-nodejs-client');
+
 const ebayAuthToken = new EbayAuthToken({
     clientId: '<your_client_id>',
     clientSecret: '<your_client_secret>',
     redirectUri: '<redirect uri>'
 });
-// generate client credential token
+```
+
+##### ebayAuthToken.getApplicationToken(environment)
+Generate client credential token.
+```js
 (async () => {
     const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
     console.log(token);
 })();
+```
 
-// generate user consent authorization url.
-(async () => {
-    const authUrl = await ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes);
+##### ebayAuthToken.generateUserAuthorizationUrl(environment, scopes[, options])
+Generate user consent authorization url.
+```js
+(() => {
+    const authUrl = ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes);
     console.log(authUrl);
 })();
+```
 
-// Getting a User access token.
+You can also provide optional values:\
+**state:** An opaque value used by the client to maintain state between the request and callback.\
+**prompt:** Force a user to log in when you redirect them to the Grant Application Access page, even if they already have an existing user session.
 
+The method call above could also be done as
+```js
+(() => {
+    const options = { state: 'custom-state-value', prompt: 'login' };
+    const authUrl = ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes, options);
+    console.log(authUrl);
+})();
+```
+
+##### ebayAuthToken.exchangeCodeForAccessToken(environment, code)
+Getting a User access token.
+```js
 (async () => {
     const accessToken = await ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code);
     console.log(accessToken);
 })();
+```
 
-// Using a refresh token to update a User access token (Updating the expired access token).
+##### ebayAuthToken.getAccessToken(environment, refreshToken, scopes)
+Using a refresh token to update a User access token (Updating the expired access token).
+```js
 (async () => {
     const accessToken = await ebayAuthToken.getAccessToken('PRODUCTION', refreshToken, scopes);
     console.log(accessToken);
 })();
-
 ```
+
 ## Library Setup and getting started
 
 1. Invoke the oauth ebay library as given below
@@ -85,7 +114,8 @@ OR
 ```javascript
 const ebayAuthToken = new EbayAuthToken({
     clientId: '<your_client_id>',
-    clientSecret: '<your_client_secret>'
+    clientSecret: '<your_client_secret>',
+    redirectUri: '<redirect_uri_name>'
 });
 ```
 2. If you want to get your application credentials such as AppId, DevId, and CertId. Refer to [Creating eBay Developer Account](https://developer.ebay.com/api-docs/static/creating-edp-account.html) for details on how to get these credentials.
