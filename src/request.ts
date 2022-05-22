@@ -17,14 +17,19 @@
  */
 
 'use strict';
+
+import { EbayCredential } from ".";
+
 const https = require('https');
 
-const base64Encode = (encodeData) => {
-    const buff = new Buffer.from(encodeData); // eslint-disable-line 
+const base64Encode = (encodeData:string) => {
+    const buff =  Buffer.from(encodeData); 
     return buff.toString('base64');
 };
 
-const postRequest = (data, ebayAuthToken) => {
+
+
+export const postRequest = (data:string, ebayAuthToken: Partial<EbayCredential>) => {
     const encodedStr = base64Encode(`${ebayAuthToken.clientId}:${ebayAuthToken.clientSecret}`);
     const auth = `Basic ${encodedStr}`;
     return new Promise((resolve, reject) => {
@@ -38,10 +43,10 @@ const postRequest = (data, ebayAuthToken) => {
             hostname: ebayAuthToken.baseUrl,
             method: 'POST'
         });
-        request.on('response', (response) => {
-            let body = '';
+        request.on('response', (response: any) => {
+            let body:any = '';
             response.setEncoding('utf8');
-            response.on('data', (chunk) => body += chunk); // eslint-disable-line 
+            response.on('data', (chunk:any) => body += chunk); // eslint-disable-line 
             response.on('end', () => {
                 if (body.error) {
                     reject(body);
@@ -50,11 +55,10 @@ const postRequest = (data, ebayAuthToken) => {
             });
         });
 
-        request.on('error', (error) => {
+        request.on('error', (error:any) => {
             reject(error);
         });
         request.end(data);
     });
 };
 
-module.exports = postRequest;

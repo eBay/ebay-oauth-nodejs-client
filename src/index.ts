@@ -18,9 +18,10 @@
 
 'use strict';
 
+import { postRequest } from "./request";
+
 const queryString = require('querystring');
 const consts = require('./constants');
-const postRequest = require('./request');
 const { readJSONFile, validateParams, readOptions } = require('./utils');
 
 /**
@@ -36,8 +37,34 @@ const { readJSONFile, validateParams, readOptions } = require('./utils');
  * @public
  */
 
-class EbayOauthToken {
-    constructor(options) {
+export type EbayOptions = EbayCredential & {
+    filePath: string
+    prompt: unknown
+    state: unknown
+    env: EbayEnvironment
+}
+export type EbayEnvironment = "PRODUCTION"|"SANDBOX"
+export type EbayCredentials = { [env in EbayEnvironment]: Partial<EbayCredential> };
+export type EbayCredential = {
+    redirectUri: string
+    clientId: string
+    clientSecret: string
+    baseUrl: string
+
+    
+}
+type RefreshToken = string
+type Scope = string
+export type EbayScopes = string[] | string
+
+export default class EbayOauthToken {
+
+    credentials: Partial<EbayCredentials>
+    grantType: string
+    scope: string = ''
+    refreshToken: RefreshToken = ''
+
+    constructor(options: Partial<EbayOptions>) {
         if (!options) {
             throw new Error('This method accepts an object with filepath or with client id and client secret');
         }
@@ -53,7 +80,7 @@ class EbayOauthToken {
     * @param scopes array list of scopes for which you need to generate the access token.
     * @return accessToken object.
    */
-    getApplicationToken(environment, scopes = consts.CLIENT_CRED_SCOPE) {
+    getApplicationToken(environment:EbayEnvironment, scopes:EbayScopes = consts.CLIENT_CRED_SCOPE) {
         validateParams(environment, scopes, this.credentials);
         this.grantType = consts.PAYLOAD_VALUE_CLIENT_CREDENTIALS;
         this.scope = Array.isArray(scopes) ? scopes.join('%20') : scopes;
@@ -73,7 +100,7 @@ class EbayOauthToken {
      * @param {string} options.prompt enforce to log in
      * @return userConsentUrl
     */
-    generateUserAuthorizationUrl(environment, scopes, options) {
+    generateUserAuthorizationUrl(environment: EbayEnvironment, scopes:EbayScopes, options:EbayOptions) {
         validateParams(environment, scopes, this.credentials);
         const credentials = this.credentials[environment];
         if (!credentials) throw new Error('Error while reading the credentials, Kindly check here to configure');
@@ -98,13 +125,13 @@ class EbayOauthToken {
      * @param code code generated from browser using the method generateUserAuthorizationUrl.
      * @return accessToken object.
     */
-    exchangeCodeForAccessToken(environment, code) {
+    exchangeCodeForAccessToken(environment: EbayEnvironment, code: string) {
         if (!code) {
             throw new Error('Authorization code is required');
         }
         validateParams(environment, true, this.credentials[environment]);
         const credentials = this.credentials[environment];
-        const data = `code=${code}&grant_type=${consts.PAYLOAD_VALUE_AUTHORIZATION_CODE}&redirect_uri=${credentials.redirectUri}`; // eslint-disable-line 
+        const data = `code=${code}&grant_type=${consts.PAYLOAD_VALUE_AUTHORIZATION_CODE}&redirect_uri=${credentials?.redirectUri}`; // eslint-disable-line 
         return postRequest(data, credentials);
     }
 
@@ -115,7 +142,7 @@ class EbayOauthToken {
      * @param scopes array list of scopes for which you need to generate the access token.
      * @return accessToken object.
     */
-    getAccessToken(environment, refreshToken, scopes) {
+    getAccessToken(environment: EbayEnvironment, refreshToken:RefreshToken, scopes:EbayScopes) {
         const token = refreshToken || this.getRefreshToken();
         validateParams(environment, scopes, this.credentials);
         this.scope = Array.isArray(scopes) ? scopes.join('%20') : scopes;
@@ -126,7 +153,7 @@ class EbayOauthToken {
         return postRequest(data, this.credentials[environment]);
     }
 
-    setRefreshToken(refreshToken) {
+    setRefreshToken(refreshToken:RefreshToken) {
         this.refreshToken = refreshToken;
     }
 
@@ -135,4 +162,4 @@ class EbayOauthToken {
     }
 }
 
-module.exports = EbayOauthToken;
+

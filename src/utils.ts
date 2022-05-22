@@ -1,3 +1,4 @@
+import { EbayEnvironment, EbayScopes, EbayCredentials, EbayOptions } from './index';
 'use strict';
 /*
  * *
@@ -21,7 +22,7 @@ const path = require('path');
 const sandboxBaseUrl = 'api.sandbox.ebay.com';
 const prodBaseUrl = 'api.ebay.com';
 
-const readJSONFile = (fileName) => {
+export const readJSONFile = (fileName: string) => {
     try {
         const resolvePath = path.resolve(process.cwd(), fileName);
         const configData = JSON.parse(fs.readFileSync(resolvePath));
@@ -31,18 +32,17 @@ const readJSONFile = (fileName) => {
     }
 };
 
-const validateParams = (environment, scopes, credentials) => {
+export const validateParams = (environment:EbayEnvironment, scopes:EbayScopes, credentials:EbayCredentials) => {
     if (!environment) throw new Error('Kindly provide the environment - PRODUCTION/SANDBOX');
     if (!scopes) throw new Error('scopes is required');
     if (!credentials) throw new Error('credentials configured incorrectly');
 };
 
-const readOptions = (options) => {
-    const credentials = {};
+export const readOptions = (options:EbayOptions) => {
+    const credentials:Partial<EbayCredentials> = {};
     if (!options.env) options.env = 'PRODUCTION';
     options.baseUrl = options.env === 'PRODUCTION' ? prodBaseUrl : sandboxBaseUrl;
     credentials[options.env] = { ...options };
     return credentials;
 };
 
-module.exports = { readJSONFile, validateParams, readOptions };
