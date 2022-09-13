@@ -7,7 +7,7 @@ node_js:
   - 10
   - 8
 before_install:
-  - rm .yarnrc.yml
+  - rm -f .yarnrc.yml
   # Repo for Yarn
   - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
   - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
