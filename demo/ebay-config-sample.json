@@ -1,16 +1,16 @@
 {
     "SANDBOX": {
-        "clientId": "---Client Id---",
-        "clientSecret": "--- client secret---",
-        "devid": "-- dev id ---",
-        "redirectUri": "-- redirect uri ---",
+        "clientId": "--- Client Id ---",
+        "clientSecret": "--- Client Secret ---",
+        "devid": "--- Dev Id ---",
+        "redirectUri": "--- Redirect Uri ---",
         "baseUrl": "api.sandbox.ebay.com"
     },
     "PRODUCTION": {
-        "clientId": "---Client Id---",
-        "clientSecret": "--- client secret---",
-        "devid": "-- dev id ---",
-        "redirectUri": "-- redirect uri ---",
+        "clientId": "--- Client Id ---",
+        "clientSecret": "--- Client Secret ---",
+        "devid": "--- Dev Id ---",
+        "redirectUri": "--- Redirect Uri ---",
         "baseUrl": "api.ebay.com"
     }
 }
