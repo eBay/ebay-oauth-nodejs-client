@@ -48,7 +48,7 @@ class EbayOauthToken {
     }
 
     /**
-    * generate application access toke for client credentials grant flow.
+    * generate application access token for client credentials grant flow.
     * @param environment Environment (production/sandbox).
     * @param scopes array list of scopes for which you need to generate the access token.
     * @return accessToken object.
