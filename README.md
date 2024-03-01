@@ -1,3 +1,8 @@
+```
+Node.js v20.11.0
+Npm 10.2.4
+```
+
 # Ebay Oauth Client
 
 This code allows developers to fetch an OAuth token that can be used to call the eBay Developer REST APIs.  The code is intended for use with Node.js.
@@ -30,12 +35,7 @@ See: https://developer.ebay.com/api-docs/static/oauth-tokens.html
 
 Using npm:
 ```shell
-npm install ebay-oauth-nodejs-client
-```
-
-Using yarn:
-```shell
-yarn add ebay-oauth-nodejs-client
+npm i
 ```
 
 ## Usage
