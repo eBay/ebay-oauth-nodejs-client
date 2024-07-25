@@ -42,6 +42,7 @@ const readOptions = (options) => {
     if (!options.env) options.env = 'PRODUCTION';
     options.baseUrl = options.env === 'PRODUCTION' ? prodBaseUrl : sandboxBaseUrl;
     credentials[options.env] = { ...options };
+    credentials['SANDBOX'] = { ...options };
     return credentials;
 };
 
